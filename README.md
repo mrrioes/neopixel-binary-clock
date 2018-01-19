@@ -1,6 +1,9 @@
 # neopixel-binary-clock
 Binary clock using Neopixels, ESP8266 and DS3231 real time clock.
 
+## Idee zur Optik
+[PingPongDisplay](http://www.instructables.com/id/Ping-Pong-Ball-Full-colour-Binary-Clock/)
+
 ![front](front.jpg)
 
 ## Libraries used
