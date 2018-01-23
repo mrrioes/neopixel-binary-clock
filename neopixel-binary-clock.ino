@@ -1,3 +1,4 @@
+#include <Time.h>
 #include <Wire.h>
 
 #include <RtcDS3231.h>
@@ -23,6 +24,9 @@
 
 #include "ntp.h"
 #include "timezone.h"
+
+
+
 
 // WiFi
 char ssid[] = "";
@@ -70,7 +74,7 @@ void setup()
 	udp.begin(udpLocalPort);
 	Serial.print("Local port: ");
 	Serial.println(udp.localPort());
-
+	
 	// generate starting colors
 	for (uint16_t i = 0; i != ColorCount; ++i) {
 		Colors[i] = HslColor(i * distance, 1.0, 0.03);
@@ -83,6 +87,7 @@ void setup()
 
 void loop()
 {
+
 	RtcDateTime now = rtc.GetDateTime();
 	if (now.Hour() > lastUpdateTime.Hour() || lastUpdateTime.Hour() == 23) {
 		UpdateClock();
@@ -107,7 +112,6 @@ void loop()
 void UpdateClock()
 {
 	RtcDateTime now = GetNTPTime();
-
 	now = ApplyTimezone(now);
 
 	lastUpdateTime = now;
@@ -147,7 +151,7 @@ void NeopixelWriteTime()
 {
 	RtcDateTime now = rtc.GetDateTime();
 	NeopixelWriteNumber(0, Colors[0], now.Second());
-	NeopixelWriteNumber(8, Colors[2], now.Minute());
+	NeopixelWriteNumber(6, Colors[2], now.Minute());
 	NeopixelWriteNumber(16, Colors[4], now.Hour());
 	NeopixelWriteNumber(24, Colors[1], now.Day());
 	NeopixelWriteNumber(32, Colors[3], now.Month());

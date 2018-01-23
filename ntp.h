@@ -38,8 +38,9 @@ RtcDateTime GetNTPTime()
 	bool success = false;
 	while (true) {
 		sendNTPpacket(timeServerIP);
-
-		while (udp.parsePacket() == 0) {
+		delay(5000);
+		Serial.println(udp.parsePacket());
+		/*while (udp.parsePacket() == 0) {
 			if ((millis() - start < 3000)) { // 3s timeout for NTP
 				Serial.println("No packet yet");
 				delay(20);
@@ -47,7 +48,7 @@ RtcDateTime GetNTPTime()
 				Serial.println("Retrying NTP");
 				continue; // retry NTP after timeout
 			}
-		}
+		}*/
 
 		Serial.println("Got answer");
 		break; // got NTP
@@ -62,6 +63,7 @@ RtcDateTime GetNTPTime()
 	unsigned long epoch2k = secsSince1900 - 3155673600UL;
 
 	RtcDateTime currentTime(epoch2k);
+	Serial.println(currentTime);
 	return currentTime;
 }
 
